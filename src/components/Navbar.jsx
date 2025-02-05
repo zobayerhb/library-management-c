@@ -5,12 +5,15 @@ import { AuthContext } from "../providers/AuthProvider";
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
   return (
-    <div className="navbar shadow container mx-auto rounded">
+    <div className="navbar shadow container mx-auto rounded items-center">
       <div className="flex-1">
         <Link to={"/"} className="text-3xl font-extrabold text-blue-500">
           LMS
         </Link>
       </div>
+      <Link className="mr-3 text-blue-400 font-bold underline" to="/">
+        Home
+      </Link>
       <p>{user?.email}</p>
       {user ? (
         <div className="flex-none">
@@ -21,10 +24,7 @@ const Navbar = () => {
               className="btn btn-ghost btn-circle avatar"
             >
               <div className="w-10 rounded-full">
-                <img
-                  alt="Tailwind CSS Navbar component"
-                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                />
+                <img referrerPolicy="no-referrer" alt="" src={user?.photoURL} />
               </div>
             </div>
             <ul
@@ -40,7 +40,10 @@ const Navbar = () => {
               <li>
                 <a className="text-base font-medium">Borrowed Books</a>
               </li>
-              <button onClick={()=> logOut()} className="items-center text-white bg-red-900 rounded-2xl text-base font-medium cursor-pointer">
+              <button
+                onClick={() => logOut()}
+                className="items-center text-white bg-red-900 rounded-2xl text-base font-medium cursor-pointer"
+              >
                 Logout
               </button>
             </ul>
