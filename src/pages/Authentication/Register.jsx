@@ -1,13 +1,15 @@
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { FcGoogle } from "react-icons/fc";
 import Lottie from "lottie-react";
 import loginLottieAnimation from "../../assets/login-lottie.json";
 import Navbar from "../../components/Navbar";
+import toast from "react-hot-toast";
 
 const Register = () => {
-  const { createUser } = useContext(AuthContext);
+  const { createUser, updateUserProfile, setUser } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleRegisterUser = async (e) => {
     e.preventDefault();
@@ -21,9 +23,12 @@ const Register = () => {
 
     try {
       const result = await createUser(email, password);
-      console.log(result);
+      await updateUserProfile(name, photo);
+      toast.success("Register Successfull");
+      setUser({ ...result.user, photoURL: photo, displayName: name });
+      navigate("/");
     } catch (error) {
-      console.log(error.message);
+      toast.error(error.code);
     }
   };
 
