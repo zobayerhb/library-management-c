@@ -6,9 +6,11 @@ import Lottie from "lottie-react";
 import loginLottieAnimation from "../../assets/login-lottie.json";
 import Navbar from "../../components/Navbar";
 import toast from "react-hot-toast";
+import Footer from "../../components/Footer";
 
 const Register = () => {
-  const { createUser, updateUserProfile, setUser } = useContext(AuthContext);
+  const { createUser, updateUserProfile, setUser, signInWithGoogle } =
+    useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleRegisterUser = async (e) => {
@@ -21,6 +23,7 @@ const Register = () => {
 
     console.table({ name, email, photo, password });
 
+    //  create user
     try {
       const result = await createUser(email, password);
       await updateUserProfile(name, photo);
@@ -29,6 +32,18 @@ const Register = () => {
       navigate("/");
     } catch (error) {
       toast.error(error.code);
+    }
+  };
+
+  // create user with google sign in
+  const handleGoogleSignUp = async () => {
+    try {
+      await signInWithGoogle();
+      toast.success("User Successfully Sign Up");
+      navigate("/");
+    } catch (err) {
+      // console.log(err.message);
+      toast.error(err.code);
     }
   };
 
@@ -44,7 +59,10 @@ const Register = () => {
           <div className="card bg-base-100 max-w-sm w-lg shrink-0 shadow-xl">
             {/* login with google  */}
             <div className="mx-7 mt-6">
-              <button className="flex gap-4 py-2 cursor-pointer hover:bg-gray-50 transition-all justify-center items-center border-[1px] border-gray-300 rounded w-full">
+              <button
+                onClick={handleGoogleSignUp}
+                className="flex gap-4 py-2 cursor-pointer hover:bg-gray-50 transition-all justify-center items-center border-[1px] border-gray-300 rounded w-full"
+              >
                 {" "}
                 <FcGoogle size={20} />{" "}
                 <span className="font-base">Sign In With Google</span>
@@ -121,6 +139,10 @@ const Register = () => {
             <Lottie animationData={loginLottieAnimation} loop={true}></Lottie>
           </div>
         </div>
+      </div>
+      {/* footer */}
+      <div>
+        <Footer />
       </div>
     </>
   );

@@ -1,9 +1,11 @@
+import SwiperSlider from "../../components/SwiperSlider";
+
 const Home = () => {
-    return (
-        <div>
-            
-        </div>
-    );
+  return (
+    <div className="">
+      <SwiperSlider />
+    </div>
+  );
 };
 
-export default Home;    
+export default Home;
