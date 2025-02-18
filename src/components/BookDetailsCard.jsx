@@ -1,6 +1,8 @@
+import { Link } from "react-router";
+
 /* eslint-disable react/prop-types */
 const BookDetailsCard = ({ bDetails }) => {
-  const { image, name, author } = bDetails || {};
+  const { image, name, author, id } = bDetails || {};
   console.log(bDetails);
   return (
     <div className="card card-compact bg-base-100 shadow-lg">
@@ -11,7 +13,12 @@ const BookDetailsCard = ({ bDetails }) => {
         <h2 className="card-title">{name}</h2>
         <span>{author}</span>
         <div className="">
-          <button className="btn bg-blue-500 w-full text-base text-white">Details</button>
+          <Link
+            to={`/bookDetails/${id}`}
+            className="btn bg-blue-500 w-full text-base text-white"
+          >
+            Details
+          </Link>
         </div>
       </div>
     </div>
