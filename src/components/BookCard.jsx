@@ -6,7 +6,7 @@ const BookCard = ({ book }) => {
     <div className="card bg-base-100 shadow-xl">
       <div className="card-body px-5 pb-4">
         <Link
-          to={`${book._id}`}
+          to={`/categoriesDetails/${book._id}`}
           className="card-title font-bold text-[22px] text-blue-500"
         >
           {book.category}
